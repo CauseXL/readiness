@@ -1,9 +1,174 @@
-div {
-  background-color: lightcyan;
-  padding: 10px 0;
+body {
+  background-color: lightsteelblue;
 }
+
+// * ---------------- util
+
+$list: 2 4 6 8 10 12 14 16 18 20 22 24 26;
+
+@each $i in $list {
+  .px-#{$i}{
+    padding-left: #{$i}px;
+    padding-right: #{$i}px;
+  }
+
+  .py-#{$i}{
+    padding-top: #{$i}px;
+    padding-bottom: #{$i}px;
+  }
+
+  .pr-#{$i}{
+    padding-right: #{$i}px;
+  }
+
+  .pl-#{$i}{
+    padding-left: #{$i}px;
+  }
+
+  .pt-#{$i}{
+    padding-top: #{$i}px;
+  }
+
+  .pb-#{$i}{
+    padding-bottom: #{$i}px;
+  }
+
+  .mr-#{$i}{
+    margin-right: #{$i}px;
+  }
+
+  .ml-#{$i}{
+    margin-left: #{$i}px;
+  }
+
+  .mt-#{$i}{
+    margin-top: #{$i}px;
+  }
+
+  .mb-#{$i}{
+    margin-bottom: #{$i}px;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.word-breaker-all {
+  word-break: break-all;
+}
+
+.vertical-middle {
+  vertical-align: middle;;
+}
+
+
+// * ---------------- 
 
 .action-header {
   display: flex;
-  background-color: red;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.display-center {
+  display: flex;
+  place-items: center;
+}
+
+.status_info {
+  flex: 1;
+  padding: 4px 12px;
+
+  .status_info_container {
+    padding-left: 12px;
+    border-left: 1px solid #dce1e5;
+  }
+
+  .status_info_item {
+    margin-right: 12px;
+  }
+}
+
+.status_popover_desc {
+  width: 220px;
+  font-size: 12px;
+}
+
+.status_circle {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.status_circle--large {
+  width: 18px;
+  height: 18px;
+}
+
+.status_circle--green {
+  background: #2ed1b9;
+}
+
+.status_circle--yellow {
+  background: #ffa730;
+}
+
+.status_circle--red {
+  background: #f9434d;
+}
+
+.status_circle--gray {
+  background: #d3d7db;
+}
+
+.status_circle--empty {
+  background: white;
+  border: 1px solid #d3d7db;
+}
+
+.status-action {
+  .status-action-item-dropdown {
+    display: none;
+  }
+
+  &:hover {
+    .status-action-item {
+      display: none;
+    }
+    .status-action-item-dropdown {
+      display: block;
+    }
+  }
+}
+
+.status-action-item {
+  min-width: 68px;
+  min-height: 20px;
+  margin: 0 auto;
+}
+
+.status-action-item--green {
+  cursor: pointer;
+}
+
+.status-action-item-button {
+  position: relative;
+  min-width: 68px;
+  padding: 0;
+}
+
+.status-action-item-button-container {
+  min-width: 68px;
+}
+
+.status-action-item-icon {
+  position: absolute;
+  top: 8px;
+  right: 5px
+}
+
+.ant-table-thead > tr > th {
+  padding: 6px 16px;
 }

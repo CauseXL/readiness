@@ -1,27 +1,22 @@
-import { useState } from 'react';
-import { SearchInput } from '../SearchInput';
-import './App.css';
+import { SearchInput } from './SearchInput';
+import { StatusInfo } from './StatusInfo';
+import { AddBtn } from './AddBtn';
 import 'antd/dist/antd.css';
 import './style.scss';
+import { TableList } from './TableList';
+import { Empty } from 'antd';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className="App">
-      <h1>Vite + React</h1>
-      <SearchInput />
-      <div className="card action-header">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+    <div>
+      <div className="action-header mb-14">
+        <SearchInput />
+        <div className="status_info">
+          <StatusInfo />
+        </div>
+        <AddBtn />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      { true ? <TableList /> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} /> }
     </div>
   );
 }
