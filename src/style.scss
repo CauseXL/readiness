@@ -48,6 +48,10 @@ $list: 2 4 6 8 10 12 14 16 18 20 22 24 26;
   .mb-#{$i}{
     margin-bottom: #{$i}px;
   }
+
+  .font-#{$i} {
+    font-size: #{$i}px;
+  }
 }
 
 .cursor-pointer {
@@ -73,7 +77,8 @@ $list: 2 4 6 8 10 12 14 16 18 20 22 24 26;
 
 .display-center {
   display: flex;
-  place-items: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .status_info {
@@ -87,6 +92,7 @@ $list: 2 4 6 8 10 12 14 16 18 20 22 24 26;
 
   .status_info_item {
     margin-right: 12px;
+    cursor: pointer;
   }
 }
 
@@ -145,12 +151,20 @@ $list: 2 4 6 8 10 12 14 16 18 20 22 24 26;
 
 .status-action-item {
   min-width: 68px;
-  min-height: 20px;
-  margin: 0 auto;
+  min-height: 70px;
+  margin: -10px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .status-action-item--green {
+  margin: -16px 0;
   cursor: pointer;
+
+  &:hover {
+    background: linear-gradient(0deg, rgba(78, 72, 61, 0.28), rgba(78, 72, 61, 0.28)), #FFFFFF;
+  }
 }
 
 .status-action-item-button {
@@ -169,6 +183,16 @@ $list: 2 4 6 8 10 12 14 16 18 20 22 24 26;
   right: 5px
 }
 
-.ant-table-thead > tr > th {
-  padding: 6px 16px;
+.table-footer {
+  margin: -12px 0;
+}
+
+.readiness-table {
+  .ant-table-footer {
+    background: white;
+  }
+  
+  .ant-table-thead > tr > th {
+    padding: 6px 16px;
+  }
 }

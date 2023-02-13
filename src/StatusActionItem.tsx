@@ -1,13 +1,15 @@
-import React, { FC, ReactElement, useState } from 'react';
+import React, { FC, memo, ReactElement, useCallback, useState } from 'react';
 import { CloseOutlined, DownOutlined } from '@ant-design/icons';
-import { MenuProps, Popconfirm } from 'antd';
+import { MenuProps, message, Popconfirm } from 'antd';
 import { Button, Dropdown } from 'antd';
+import { useRecoilState } from 'recoil';
+import { detailRefreshFuncState } from './store';
 
 export type StatusType = 'green' | 'yellow' | 'red' | 'gray' | 'empty';
 
 // * ------------------------------------------------
 
-const RedStatus: FC = () => {
+const RedStatus: FC = memo(() => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleMenuClick: MenuProps['onClick'] = e => {
@@ -57,13 +59,17 @@ const RedStatus: FC = () => {
       </div>
     </div>
   )
-}
+})
 
 // * ------------------------------------------------
 
-const GrayStatus: FC = () => {
+const GrayStatus: FC = memo(() => {
+  const [detailRefresh, setDetailRefresh] = useRecoilState(detailRefreshFuncState);
+
   const onConfirm = () => {
     console.log('onConfirm')
+    console.log('===== debug bf5b0f ======', detailRefresh)
+    detailRefresh?.();
   }
   
   return (
@@ -83,21 +89,27 @@ const GrayStatus: FC = () => {
       </div>
     </div>
   )
-}
+})
 
 // * ------------------------------------------------
 
-const GreenStatus: FC<{id: number; blockName: string}> = ({ id, blockName }) => {
-  const handleClick = () => {
-    location.href = `/${id}#${blockName}`;
-  };
+const GreenStatus: FC<{id: number; blockName: string}> = memo(({ id, blockName }) => {
+  const handleClick = useCallback(
+    () => {
+      if (true) {
+        return message.warning('暂无权限查看Portal！');
+      }
+      location.href = `/${Math.random()}/${id}#${blockName}`;
+    },
+    [],
+  )
 
   return (
     <div className="status-action-item status-action-item--green" onClick={handleClick} >
       <StatusItem type="green" />
     </div>
   )
-}
+})
 
 // * ------------------------------------------------
 
@@ -121,7 +133,7 @@ const StatusItem: FC<{ type: StatusType }> = ({ type }) => {
 };
 
 
-export const StatusActionItem: FC<{ type: StatusType }> = ({ type }) => {
+export const StatusActionItem: FC<{ type: StatusType }> = memo(({ type }) => {
   const map: Record<StatusType, ReactElement> = {
     'green': <GreenStatus id={1} blockName="123" />,
     'red': <RedStatus />,
@@ -130,4 +142,4 @@ export const StatusActionItem: FC<{ type: StatusType }> = ({ type }) => {
     'empty': <EmptyStatus />,
   }
   return (map[type]);
-};
+});

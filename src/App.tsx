@@ -4,19 +4,42 @@ import { AddBtn } from './AddBtn';
 import 'antd/dist/antd.css';
 import './style.scss';
 import { TableList } from './TableList';
-import { Empty } from 'antd';
+import { Empty, Spin } from 'antd';
+import { useState } from 'react';
+import { useRequest } from 'ahooks';
+import { getList } from './api';
+import { useRecoilState } from 'recoil';
+import { searchState } from './store';
 
 function App() {
+  const [search, setSearch] = useRecoilState(searchState);
+
+  const [isDetailPage, setIsDetailPage] = useState(false);
+  const { data, run, loading } = useRequest(getList, {
+    refreshDeps: [search],
+  }); 
+
   return (
     <div>
-      <div className="action-header mb-14">
-        <SearchInput />
-        <div className="status_info">
-          <StatusInfo />
+      { isDetailPage ? null : (
+        <div className="action-header mb-14">
+          <SearchInput />
+          <div className="status_info">
+            <StatusInfo />
+          </div>
+          <AddBtn />
         </div>
-        <AddBtn />
-      </div>
-      { true ? <TableList /> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} /> }
+      )}
+      { loading
+        ?
+        <Spin />
+        :
+        data
+        ?
+        <TableList data={data} isDetailPage={isDetailPage} setIsDetailPage={setIsDetailPage} />        
+        :
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+      }
     </div>
   );
 }
